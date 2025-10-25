@@ -47,19 +47,22 @@ form input {
   border-radius: 5px;
   margin-top: 8px;
   margin-bottom: 5px;
+  overflow: hidden;
 }
 
 #strengthFill {
   height: 100%;
   width: 0%;
-  transition: width 0.3s ease;
   background: red;
   border-radius: 5px;
+  transition: width 0.4s ease, background-color 0.4s ease;
 }
 
 #strengthText {
   font-size: 0.9em;
   color: #555;
+  text-align: right;
+  font-weight: 500;
 }
 
 button {

@@ -1,71 +1,79 @@
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="output.css">
+    <title>Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-
 <body>
-
     <div class="bg-slate-950 flex flex-row min-h-screen justify-center items-center">
         <div class="grid grid-cols-4 gap-4">
-            <input id="calc-input" class= "col-span-4 placeholder-white border text-white shadow-orange-50 row-span-2 rounded py-2 px-4 border-b-4" placeholder=""/>
-            
-            <button
-            id = "subtract"  class=  "bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">-</button>
+            <input id="calc-input" class="col-span-4 placeholder-white border text-white shadow-orange-50 row-span-2 rounded py-2 px-4 border-b-4" placeholder="0" readonly />
 
-            
-            <button
-            id = "divide"  class= "bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">/</button>
+            <button id="subtract" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">-</button>
+            <button id="divide" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">/</button>
+            <button id="multiply" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">*</button>
+            <button id="delete" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">Del</button>
 
-            
-            <button
-            id = "multiply"  class= "bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">*</button>
+            <button id="seven" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">7</button>
+            <button id="eight" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">8</button>
+            <button id="nine" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">9</button>
+            <button id="add" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded row-span-2">+</button>
 
-            <button
-            id = "delete"  class= "bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">Del</button>
+            <button id="four" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">4</button>
+            <button id="five" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">5</button>
+            <button id="six" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">6</button>
 
-            <button
-            id = "seven" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">7</button>
-        <button
-           id = "eight" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">8</button>
-        <button
-           id = "nine" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">9</button>
+            <button id="one" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">1</button>
+            <button id="two" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">2</button>
+            <button id="three" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">3</button>
 
-           <button
-           id = "add" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded row-span-2">+</button>
-            
-           <button
-           id = "four" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">4</button>
-       <button
-           id = "five" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">5</button>
-       <button
-           id = "six" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">6</button>
-           
-           <button
-               id="one" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">1</button>
-            <button
-                id = "two" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">2</button>
-            <button
-                id = "three" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">3</button>
-    
+            <button id="equal" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded row-span-2">=</button>
 
-
-            <button
-               id = "equal" class=  "bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded row-span-2">=</button>
-            
-               <button
-               id = "zero" class="col-span-2 bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">0</button>
-               <button
-               id = "decimal" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">.</button>
-           
-           
+            <button id="zero" class="col-span-2 bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">0</button>
+            <button id="decimal" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">.</button>
         </div>
     </div>
 
-    <script src="script.js"></script>
-</body>
+    <script>
+        const input = document.getElementById('calc-input');
+        let current = '';
 
+        const appendValue = val => {
+            current += val;
+            input.value = current;
+        }
+
+        document.getElementById('zero').onclick = () => appendValue('0');
+        document.getElementById('one').onclick = () => appendValue('1');
+        document.getElementById('two').onclick = () => appendValue('2');
+        document.getElementById('three').onclick = () => appendValue('3');
+        document.getElementById('four').onclick = () => appendValue('4');
+        document.getElementById('five').onclick = () => appendValue('5');
+        document.getElementById('six').onclick = () => appendValue('6');
+        document.getElementById('seven').onclick = () => appendValue('7');
+        document.getElementById('eight').onclick = () => appendValue('8');
+        document.getElementById('nine').onclick = () => appendValue('9');
+        document.getElementById('decimal').onclick = () => appendValue('.');
+        document.getElementById('add').onclick = () => appendValue('+');
+        document.getElementById('subtract').onclick = () => appendValue('-');
+        document.getElementById('multiply').onclick = () => appendValue('*');
+        document.getElementById('divide').onclick = () => appendValue('/');
+
+        document.getElementById('delete').onclick = () => {
+            current = current.slice(0, -1);
+            input.value = current;
+        }
+
+        document.getElementById('equal').onclick = () => {
+            try {
+                current = eval(current).toString();
+            } catch {
+                current = 'Error';
+            }
+            input.value = current;
+        }
+    </script>
+</body>
 </html>

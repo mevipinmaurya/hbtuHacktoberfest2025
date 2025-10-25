@@ -8,21 +8,17 @@ public class BinarySearch {
         while (left <= right) {
             int mid = left + (right - left) / 2;
 
-            // Check if target is present at mid
             if (arr[mid] == target) {
                 return mid;
             }
- /// bahut
-            // If target is greater, ignore the left half
             if (arr[mid] < target) {
                 left = mid + 1;
-            } else { // If target is smaller, ignore the right half
+            } else {
                 right = mid - 1;
             }
         }
 
-        // Target was not found
-        return -1;
+        return -1; // Target was not found
     }
 
     public static void main(String[] args) {

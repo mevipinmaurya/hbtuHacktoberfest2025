@@ -95,38 +95,47 @@
 const input = document.getElementById('calc-input');
 let s = "";
 const equal = document.getElementById('equal');
+
+// Map button IDs to values
 const buttonValues = {
     zero: '0', one: '1', two: '2', three: '3', four: '4',
     five: '5', six: '6', seven: '7', eight: '8', nine: '9',
     add: '+', subtract: '-', multiply: '*', divide: '/', decimal: '.'
 };
 
-
+// Add click event to all buttons
 Object.keys(buttonValues).forEach(id => {
     const btn = document.getElementById(id);
     btn.addEventListener('click', () => {
-        if(input.value){
-            s=input.value;
-        }
+        if(input.value) s = input.value;
         s += buttonValues[id];
         input.value = s;
     });
 });
 
+// Handle Enter key to evaluate
 input.addEventListener("keypress", function(event) {
-    if (event.key === "Enter"){
-        event.preventDefault(); 
+    if (event.key === "Enter") {
+        event.preventDefault();
         equal.click();
     }
 });
 
+// Delete last character
 document.getElementById('delete').addEventListener('click', () => {
-    s = s.slice(0, -1)
+    s = s.slice(0, -1);
     input.value = s;
 });
+
+// Evaluate expression
 equal.addEventListener('click', () => {
+    try {
         let str = input.value;
         const result = eval(str);
         s = result.toString();
         input.value = s;
+    } catch {
+        input.value = "Error";
+        s = "";
+    }
 });
