@@ -1,0 +1,141 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #1a1a2e;
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+    text-align: center;
+}
+
+.subtitle {
+    color: #aaa;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.palette-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1200px;
+    margin-bottom: 40px;
+}
+
+.color-box {
+    width: 200px;
+    height: 250px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 20px;
+    cursor: pointer;
+    transition: transform 0.3s;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.color-box:hover {
+    transform: translateY(-10px);
+}
+
+.color-code {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+    backdrop-filter: blur(10px);
+}
+
+button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    font-weight: 600;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.5);
+}
+
+button:active {
+    transform: translateY(-1px);
+}
+
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #28a745;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    display: none;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .color-box {
+        width: 150px;
+        height: 200px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    button {
+        padding: 12px 30px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .color-box {
+        width: 130px;
+        height: 180px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .palette-container {
+        gap: 15px;
+    }
+}
