@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Accessible Modal</title>
+</head>
+<body style="font-family: Arial, sans-serif;">
+
+  
+  <button id="openModalBtn" style="padding:10px 20px; cursor:pointer;">
+    Open Modal
+  </button>
+
+  
+  <div id="modalOverlay" 
+       style="position:fixed; inset:0; background:rgba(0,0,0,0.6); display:none; align-items:center; justify-content:center; z-index:999;"
+       aria-hidden="true">
+
+    
+    <div id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1"
+         style="background:#fff; border-radius:10px; padding:20px; width:400px; max-width:90%; box-shadow:0 5px 20px rgba(0,0,0,0.3);">
+      
+      <h2 id="modalTitle" style="margin-top:0;">Example Modal</h2>
+      <p>This is a simple accessible modal example.</p>
+      <input type="text" placeholder="Type something..." style="width:100%; padding:8px; margin-top:8px;">
+      <button id="closeModalBtn" style="margin-top:12px; padding:8px 16px; cursor:pointer;">Close</button>
+    </div>
+  </div>
+
+  
+  <script src="modal.js"></script>
+</body>
+</html>
