@@ -5,167 +5,217 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Weather Information</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
 <style>
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
 }
 
 body {
-    background: linear-gradient(to bottom, #74ebd5, #ACB6E5);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    min-height: 100vh;
-    padding: 20px;
+  background: linear-gradient(to bottom, #74ebd5, #ACB6E5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding: 20px;
 }
 
+/* Header */
 header {
-    width: 100%;
-    text-align: center;
-    padding: 30px 10px;
-    background: rgba(255,255,255,0.2);
-    border-radius: 15px;
-    margin-bottom: 20px;
-    backdrop-filter: blur(10px);
+  width: 100%;
+  text-align: center;
+  padding: 30px 10px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 15px;
+  margin-bottom: 20px;
+  backdrop-filter: blur(10px);
 }
 
 header h1 {
-    font-size: 2.5rem;
-    color: #333;
-    font-weight: 700;
-    text-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+  font-size: 2.5rem;
+  color: #333;
+  font-weight: 700;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.1);
 }
 
+/* Search / Button */
 .search-container {
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: center;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .search-container button {
-    padding: 12px 25px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    background: #FFDD59;
-    color: #333;
-    font-weight: 500;
-    transition: 0.3s;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 12px 25px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background: #FFDD59;
+  color: #333;
+  font-weight: 500;
+  transition: 0.3s;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .search-container button:hover {
-    background: #FFD700;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  background: #FFD700;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
+/* Weather Card */
 .weather-card {
-    background: rgba(255, 255, 255, 0.85);
-    padding: 25px 30px;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    text-align: center;
-    width: 350px;
-    max-width: 90%;
-    transition: 0.3s;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 25px 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  text-align: center;
+  width: 350px;
+  max-width: 90%;
+  transition: 0.3s;
 }
 
 .weather-card h2 {
-    font-size: 2rem;
-    margin-bottom: 15px;
-    color: #333;
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.weather-card img {
+  width: 80px;
+  height: 80px;
+  margin: 10px 0;
 }
 
 .weather-card p {
-    font-size: 1.1rem;
-    margin: 6px 0;
-    color: #555;
+  font-size: 1.1rem;
+  margin: 6px 0;
+  color: #555;
 }
 
+/* Loading Spinner */
+.loader {
+  border: 4px solid rgba(255,255,255,0.3);
+  border-top: 4px solid #333;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+  display: none;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Footer */
 footer {
-    margin-top: 30px;
-    text-align: center;
-    font-size: 0.9rem;
-    color: #444;
+  margin-top: 30px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #444;
 }
 
+/* Responsive Design */
 @media (max-width: 480px) {
-    header h1 {
-        font-size: 1.8rem;
-        padding: 20px 10px;
-    }
-    .search-container button {
-        padding: 10px 18px;
-        font-size: 0.9rem;
-    }
-    .weather-card {
-        padding: 20px;
-        width: 90%;
-    }
-    .weather-card h2 {
-        font-size: 1.5rem;
-    }
-    .weather-card p {
-        font-size: 1rem;
-    }
+  header h1 {
+    font-size: 1.8rem;
+    padding: 20px 10px;
+  }
+  .search-container button {
+    padding: 10px 18px;
+    font-size: 0.9rem;
+  }
+  .weather-card {
+    padding: 20px;
+    width: 90%;
+  }
+  .weather-card h2 {
+    font-size: 1.5rem;
+  }
+  .weather-card p {
+    font-size: 1rem;
+  }
 }
 </style>
 </head>
-<body>
 
+<body>
 <header>
-    <h1>Weather Information</h1>
+  <h1>Weather Information</h1>
 </header>
 
 <div class="search-container">
-    <button onclick="getWeather()">Get Weather for My Location</button>
+  <button onclick="getWeather()">Get Weather for My Location</button>
 </div>
 
-<div class="weather-card">
-    <h2>City Name</h2>
-    <p>Temperature: 25°C</p>
-    <p>Condition: Sunny</p>
-    <p>Humidity: 60%</p>
-    <p>Wind Speed: 10 km/h</p>
+<div class="loader" id="loader"></div>
+
+<div class="weather-card" id="weatherCard">
+  <h2>City Name</h2>
+  <img src="https://openweathermap.org/img/wn/01d.png" alt="Weather Icon">
+  <p>Temperature: 25°C</p>
+  <p>Condition: Sunny</p>
+  <p>Humidity: 60%</p>
+  <p>Wind Speed: 10 km/h</p>
 </div>
 
 <footer>
-    <p>&copy; 2025 Weather App. All rights reserved.</p>
+  <p>&copy; 2025 Weather App. All rights reserved.</p>
 </footer>
 
 <script>
+const loader = document.getElementById('loader');
+const card = document.getElementById('weatherCard');
+
 async function getWeather() {
-    if (!navigator.geolocation) {
-        alert('Geolocation is not supported by your browser.');
-        return;
+  if (!navigator.geolocation) {
+    alert('Geolocation is not supported by your browser.');
+    return;
+  }
+
+  loader.style.display = 'block';
+  card.style.opacity = '0.5';
+
+  navigator.geolocation.getCurrentPosition(async (position) => {
+    const { latitude, longitude } = position.coords;
+    const apiKey = 'YOUR_API_KEY'; // <-- Replace with your OpenWeather API key
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`;
+
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (data.cod !== 200) {
+        throw new Error(data.message);
+      }
+
+      const icon = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+      document.querySelector('.weather-card h2').textContent = data.name;
+      document.querySelector('.weather-card img').src = icon;
+      document.querySelector('.weather-card p:nth-of-type(1)').textContent = `Temperature: ${data.main.temp}°C`;
+      document.querySelector('.weather-card p:nth-of-type(2)').textContent = `Condition: ${data.weather[0].description}`;
+      document.querySelector('.weather-card p:nth-of-type(3)').textContent = `Humidity: ${data.main.humidity}%`;
+      document.querySelector('.weather-card p:nth-of-type(4)').textContent = `Wind Speed: ${data.wind.speed} km/h`;
+    } catch (error) {
+      alert('Failed to fetch weather data: ' + error.message);
+    } finally {
+      loader.style.display = 'none';
+      card.style.opacity = '1';
     }
-
-    navigator.geolocation.getCurrentPosition(async (position) => {
-        const { latitude, longitude } = position.coords;
-        const apiKey = 'YOUR_API_KEY';
-        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`;
-
-        try {
-            const response = await fetch(url);
-            const data = await response.json();
-
-            document.querySelector('.weather-card h2').textContent = data.name;
-            document.querySelector('.weather-card p:nth-child(2)').textContent = `Temperature: ${data.main.temp}°C`;
-            document.querySelector('.weather-card p:nth-child(3)').textContent = `Condition: ${data.weather[0].description}`;
-            document.querySelector('.weather-card p:nth-child(4)').textContent = `Humidity: ${data.main.humidity}%`;
-            document.querySelector('.weather-card p:nth-child(5)').textContent = `Wind Speed: ${data.wind.speed} km/h`;
-        } catch (error) {
-            alert('Failed to fetch weather data.');
-        }
-    });
+  }, (error) => {
+    loader.style.display = 'none';
+    card.style.opacity = '1';
+    alert('Unable to get your location. Please allow location access.');
+  });
 }
 </script>
-
 </body>
 </html>
