@@ -3,19 +3,282 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Color Palette Generator</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <h1>🎨 Color Palette Generator</h1>
-    <p class="subtitle">Click on any color to copy its hex code</p>
-    
-    <div class="palette-container" id="paletteContainer"></div>
-    
-    <button onclick="generatePalette()">Generate New Palette</button>
-    
-    <div class="notification" id="notification">Color copied to clipboard!</div>
+    <title>Inspiring Quote Generator</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#1DA1F2',
+                        'gemini-dark': '#0f172a',
+                        'gemini-light': '#1e293b',
+                        'accent-yellow': '#FBBF24',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Load Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
+        /* Custom styles for better quote visualization */
+        .quote-box {
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
 
-    <script src="script.js"></script>
+        /* Responsive quote font size */
+        #quote-text {
+            font-size: 1.5rem; /* Default for mobile */
+            line-height: 2.25rem;
+            text-align: center;
+        }
+        @media (min-width: 640px) {
+            #quote-text {
+                font-size: 2.25rem; /* md:text-4xl */
+                line-height: 2.75rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gemini-dark min-h-screen flex items-center justify-center p-4 font-sans text-white">
+
+    <div id="quote-container" class="w-full max-w-2xl bg-gemini-light p-8 md:p-12 rounded-2xl shadow-2xl transition-all duration-300 transform hover:shadow-accent-yellow/50">
+        
+        <h1 class="text-3xl font-extrabold mb-8 text-center text-accent-yellow">
+            Daily Dose of Wisdom
+        </h1>
+
+        <!-- Quote Display Area -->
+        <div class="quote-box relative mb-8">
+            <span id="loader" class="text-xl text-accent-yellow hidden">
+                Generating inspiration...
+                <svg class="animate-spin h-5 w-5 text-accent-yellow inline-block ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+            </span>
+            
+            <p id="quote-text" class="font-light italic text-gray-200">
+                "The only way to do great work is to love what you do."
+            </p>
+            <p id="quote-author" class="text-lg font-semibold mt-6 text-accent-yellow text-center">
+                — Steve Jobs
+            </p>
+
+            <!-- Quote icons -->
+            <div class="absolute top-0 left-0 text-3xl opacity-30 text-accent-yellow">
+                <i data-lucide="quote"></i>
+            </div>
+            <div class="absolute bottom-0 right-0 text-3xl opacity-30 text-accent-yellow transform rotate-180">
+                <i data-lucide="quote"></i>
+            </div>
+        </div>
+
+        <!-- Error Message Box -->
+        <div id="error-message" class="hidden p-4 bg-red-800/30 text-red-300 border border-red-500 rounded-lg mb-6" role="alert">
+            <p class="font-medium flex items-center">
+                <i data-lucide="alert-triangle" class="w-5 h-5 mr-2"></i>
+                <span id="error-text">An unexpected error occurred. Please try again.</span>
+            </p>
+        </div>
+
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-between pt-6 border-t border-gray-700">
+            
+            <!-- Generate Button -->
+            <button id="generate-btn" class="flex-1 px-6 py-3 bg-accent-yellow text-gemini-dark font-bold rounded-xl shadow-lg hover:shadow-accent-yellow/70 transition duration-150 transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 flex items-center justify-center" onclick="generateNewQuote()">
+                <i data-lucide="rotate-ccw" class="w-5 h-5 mr-2"></i>
+                New Quote
+            </button>
+
+            <!-- Action Group -->
+            <div class="flex gap-4">
+                <button id="copy-btn" class="p-3 bg-gemini-dark text-gray-300 rounded-xl hover:bg-gray-700/50 transition duration-150 hover:text-accent-yellow disabled:opacity-50" onclick="copyToClipboard()">
+                    <i data-lucide="copy" class="w-5 h-5"></i>
+                </button>
+                
+                <button id="tweet-btn" class="p-3 bg-gemini-dark text-gray-300 rounded-xl hover:bg-gray-700/50 transition duration-150 hover:text-primary-blue disabled:opacity-50" onclick="tweetQuote()">
+                    <i data-lucide="twitter" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message for Copy Success -->
+    <div id="copy-message" class="fixed bottom-4 right-4 bg-green-600 text-white px-4 py-2 rounded-lg shadow-xl opacity-0 transition-opacity duration-300">
+        Copied to clipboard!
+    </div>
+
+
+    <script>
+        // --- Static Quote Array ---
+        const quotesArray = [
+            { quote: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+            { quote: "Strive not to be a success, but rather to be of value.", author: "Albert Einstein" },
+            { quote: "The mind is everything. What you think you become.", author: "Buddha" },
+            { quote: "In the middle of difficulty lies opportunity.", author: "Albert Einstein" },
+            { quote: "The greatest glory in living lies not in never falling, but in rising every time we fall.", author: "Nelson Mandela" },
+            { quote: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" },
+            { quote: "Innovation distinguishes between a leader and a follower.", author: "Steve Jobs" },
+            { quote: "The best time to plant a tree was 20 years ago. The second best time is now.", author: "Chinese Proverb" },
+            { quote: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
+            { quote: "What we achieve inwardly will change outer reality.", author: "Plutarch" }
+        ];
+
+        // --- DOM Elements ---
+        const quoteTextElement = document.getElementById('quote-text');
+        const quoteAuthorElement = document.getElementById('quote-author');
+        const generateBtn = document.getElementById('generate-btn');
+        const copyBtn = document.getElementById('copy-btn');
+        const tweetBtn = document.getElementById('tweet-btn');
+        const loader = document.getElementById('loader');
+        const errorMessage = document.getElementById('error-message');
+        const errorText = document.getElementById('error-text');
+        const copyMessage = document.getElementById('copy-message');
+
+        // Initialize currentQuote to the first quote in the array
+        let currentQuote = quotesArray[0];
+        
+        // --- Utility Functions ---
+
+        /**
+         * Displays a temporary success message for copying.
+         */
+        function showCopySuccess() {
+            copyMessage.classList.remove('opacity-0');
+            copyMessage.classList.add('opacity-100');
+            setTimeout(() => {
+                copyMessage.classList.remove('opacity-100');
+                copyMessage.classList.add('opacity-0');
+            }, 2000);
+        }
+
+        /**
+         * Sets the application's UI into a loading or ready state.
+         * We keep this for visual feedback during the quote transition.
+         * @param {boolean} isLoading - True to show loader, false to hide.
+         */
+        function setLoadingState(isLoading) {
+            generateBtn.disabled = isLoading;
+            copyBtn.disabled = isLoading;
+            tweetBtn.disabled = isLoading;
+            loader.classList.toggle('hidden', !isLoading);
+            quoteTextElement.classList.toggle('hidden', isLoading);
+            quoteAuthorElement.classList.toggle('hidden', isLoading);
+            errorMessage.classList.add('hidden'); // Hide errors when loading/ready
+            
+            if (isLoading) {
+                quoteTextElement.textContent = '';
+                quoteAuthorElement.textContent = '';
+            }
+        }
+
+        /**
+         * Displays an error message to the user (used primarily for copy errors now).
+         * @param {string} message - The error message to display.
+         */
+        function displayError(message) {
+            errorText.textContent = message;
+            errorMessage.classList.remove('hidden');
+            // Re-display the last known quote
+            quoteTextElement.textContent = `"${currentQuote.quote}"`;
+            quoteAuthorElement.textContent = `— ${currentQuote.author}`;
+            quoteTextElement.classList.remove('hidden');
+            quoteAuthorElement.classList.remove('hidden');
+        }
+
+        // --- Core Functions ---
+
+        /**
+         * Selects a random quote from the local array.
+         */
+        function getNewQuote() {
+            setLoadingState(true); 
+
+            // Simulate a short delay to give visual feedback to the user
+            setTimeout(() => {
+                const randomIndex = Math.floor(Math.random() * quotesArray.length);
+                const newQuote = quotesArray[randomIndex];
+                
+                // Optional: prevent the exact same quote from appearing back-to-back
+                if (quotesArray.length > 1 && newQuote.quote === currentQuote.quote) {
+                    return getNewQuote(); 
+                }
+
+                currentQuote = newQuote;
+                displayQuote(currentQuote);
+            }, 150);
+        }
+
+        /**
+         * Updates the UI with the selected quote.
+         * @param {object} quoteObj - Object containing the quote and author.
+         */
+        function displayQuote(quoteObj) {
+            quoteTextElement.textContent = `"${quoteObj.quote}"`;
+            quoteAuthorElement.textContent = `— ${quoteObj.author}`;
+            setLoadingState(false);
+        }
+        
+        /**
+         * Event handler for generating a new quote.
+         */
+        function generateNewQuote() {
+            getNewQuote();
+        }
+
+        /**
+         * Copies the current quote and author to the clipboard.
+         */
+        function copyToClipboard() {
+            const textToCopy = `"${currentQuote.quote}" — ${currentQuote.author}`;
+            
+            // Using execCommand for better compatibility within certain environments
+            const textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            document.body.appendChild(textArea);
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                showCopySuccess();
+            } catch (err) {
+                console.error('Could not copy text: ', err);
+                displayError('Failed to copy. Please copy manually.');
+            }
+            document.body.removeChild(textArea);
+        }
+
+        /**
+         * Shares the current quote on Twitter.
+         */
+        function tweetQuote() {
+            const tweetText = `"${currentQuote.quote}" — ${currentQuote.author}`;
+            const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
+            window.open(twitterUrl, '_blank');
+        }
+
+        // --- Initialization ---
+        window.onload = function() {
+            // Initialize Lucide icons
+            lucide.createIcons();
+            
+            // The initial quote is already displayed by the HTML body, but we set currentQuote state
+            // and call getNewQuote() immediately to get a fresh random one.
+            getNewQuote(); 
+        };
+
+    </script>
 </body>
 </html>
