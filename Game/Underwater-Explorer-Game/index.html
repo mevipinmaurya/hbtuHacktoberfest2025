@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌊 Underwater Explorer - Deep Sea Adventure</title>
+    <link rel="stylesheet" href="./style.css">
+    
+</head>
+<body>
+    <!-- Menu Screen -->
+    <div id="menuScreen">
+        <h1>🌊 UNDERWATER EXPLORER 🌊</h1>
+        <p>Dive into the deep ocean! Collect pearls and treasures while avoiding dangerous sharks and jellyfish!</p>
+        
+        <!-- High Score Display -->
+        <div class="highscore-display">
+            <h2>🏆 HIGH SCORES 🏆</h2>
+            <div class="highscore-stats">
+                <span>Easy: <strong id="highscoreEasy">0</strong></span>
+                <span>Medium: <strong id="highscoreMedium">0</strong></span>
+                <span>Hard: <strong id="highscoreHard">0</strong></span>
+            </div>
+        </div>
+        
+        <div class="difficulty-container">
+            <button class="difficulty-btn easy-btn" onclick="startGame('easy')">
+                🟢 EASY
+            </button>
+            <button class="difficulty-btn medium-btn" onclick="startGame('medium')">
+                🟡 MEDIUM
+            </button>
+            <button class="difficulty-btn hard-btn" onclick="startGame('hard')">
+                🔴 HARD
+            </button>
+        </div>
+
+        <div class="info-text">
+            <p><strong>Easy:</strong> Slower enemies, more collectibles, 5 lives</p>
+            <p><strong>Medium:</strong> Balanced gameplay, 3 lives</p>
+            <p><strong>Hard:</strong> Fast enemies, fewer collectibles, 2 lives</p>
+        </div>
+    </div>
+
+    <div id="gameInfo">
+        <span class="stat">🏆 <span id="score">0</span></span>
+        <span class="stat">❤️ <span id="lives">3</span></span>
+        <span class="stat">💎 <span id="pearls">0</span></span>
+        <span class="stat">📊 <span id="difficulty">Medium</span></span>
+    </div>
+
+    <div id="instructions">
+        🎮 Use ↑↓ (W/S) to move UP/DOWN | → (D) to BOOST RIGHT | Collect 💎 Pearls & 👑 Treasures | Avoid 🦈 Sharks & 🪼 Jellyfish
+    </div>
+
+    <canvas id="gameCanvas" width="1200" height="700"></canvas>
+
+    <div id="gameOver">
+        <h1>GAME OVER!</h1>
+        <div id="newHighscoreMessage" style="display: none;">
+            <p class="new-highscore">✨ NEW HIGH SCORE! ✨</p>
+        </div>
+        <p>Final Score: <span id="finalScore">0</span></p>
+        <p>Pearls Collected: <span id="finalPearls">0</span></p>
+        <p>High Score: <span id="currentHighscore">0</span></p>
+        <button id="restartBtn" onclick="restartGame()">🌊 PLAY AGAIN!</button>
+    </div>
+
+   <script src="script.js"></script>
+</body>
+</html>
