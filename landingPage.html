@@ -3,68 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Simple Landing Page</title>
+    <title>Landing Page</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* Custom styles for the Inter font and smooth scrolling */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            background-color: #ffffff; /* Clean white background */
         }
-        header {
-            background-color: #3498db;
-            color: white;
-            padding: 10px 0;
-            text-align: center;
+        /* Define a simple primary color class for the CTA button */
+        .cta-primary {
+            background-color: #059669; /* Tailwind emerald-600 */
         }
-        section {
-            padding: 40px 20px;
-            text-align: center;
-        }
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-        p {
-            font-size: 1.2em;
-            margin-bottom: 30px;
-            color: #666;
-        }
-        .cta-button {
-            background-color: #3498db;
-            color: white;
-            padding: 10px 20px;
-            font-size: 1.2em;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-        footer {
-            background-color: #333;
-            color: white;
-            padding: 10px;
-            text-align: center;
+        .cta-primary:hover {
+            background-color: #047857; /* Tailwind emerald-700 */
         }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>Welcome to Our Landing Page</h1>
-</header>
+    <!-- Header / Navigation (Simplified) -->
+    <header class="bg-white shadow-sm sticky top-0 z-10 border-b border-gray-100">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <!-- Logo / Site Name -->
+            <a href="#" class="text-2xl font-extrabold text-gray-900">
+                <span class="text-emerald-600">Landing</span> Page
+            </a>
+            <!-- Simple CTA Button -->
+            <div class="block">
+                <a href="#cta" class="px-5 py-2 text-sm font-semibold text-white cta-primary rounded-lg shadow-md transition duration-150 transform hover:scale-[1.03]">
+                    Get Started
+                </a>
+            </div>
+        </div>
+    </header>
 
-<section>
-    <h1>Our Amazing Product</h1>
-    <p>Discover the features and benefits that will change the way you work and play.</p>
-    <a href="#" class="cta-button">Get Started</a>
-</section>
+    <main>
+        <!-- 1. Simple Hero Section (The Core of the Page) -->
+        <section class="min-h-[70vh] flex items-center justify-center py-20 md:py-32 bg-white">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-gray-900 mb-6">
+                    Launch Your Idea, <br class="hidden sm:inline"> Today.
+                </h1>
+                <p class="text-xl sm:text-2xl text-gray-500 max-w-2xl mx-auto mb-10">
+                    A simple, powerful, and elegant solution for all your needs. Focus on creation, we handle the rest.
+                </p>
 
-<footer>
-    <p>&copy; 2024 Your Company. All rights reserved.</p>
-</footer>
+                <!-- Main CTA Buttons -->
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4" id="cta">
+                    <a href="#" class="cta-primary text-white font-bold py-3 px-10 rounded-xl shadow-lg transition duration-300 transform hover:shadow-xl hover:translate-y-[-1px]">
+                        Join the Revolution
+                    </a>
+                    <a href="#" class="text-gray-900 bg-white font-medium py-3 px-10 rounded-xl border border-gray-300 hover:bg-gray-100 transition duration-300 shadow-md">
+                        Learn More
+                    </a>
+                </div>
+
+                <!-- Simple Trust Signal Placeholder -->
+                <p class="text-sm text-gray-400 mt-8">
+                    Trusted by over 10,000 users worldwide.
+                </p>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50 text-gray-500 py-6 border-t border-gray-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p>&copy; 2025 Landing Page. All rights reserved.</p>
+        </div>
+    </footer>
 
 </body>
 </html>
