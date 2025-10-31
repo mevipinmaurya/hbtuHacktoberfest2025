@@ -1,0 +1,333 @@
+<!-- File: docs/hbtu-hacktoberfest-slide.html -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>hbtuHacktoberfest2025 — Welcome</title>
+<style>
+  :root{
+    --bg:#0f172a; --card:#0b1220; --accent:#7c3aed; --muted:#94a3b8; --glass: rgba(255,255,255,0.04);
+    --maxw:900px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: linear-gradient(180deg,#071026 0%, #071228 50%, #031025 100%);
+    color: #e6eef8;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:28px;
+  }
+
+  .deck{
+    width:100%;
+    max-width:var(--maxw);
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius:14px;
+    box-shadow: 0 10px 30px rgba(2,6,23,0.7);
+    overflow:hidden;
+    border: 1px solid rgba(255,255,255,0.03);
+  }
+
+  .slides { position:relative; height:70vh; min-height:420px; display:flex; align-items:center; justify-content:center; padding:32px; }
+  .slide{
+    position:absolute;
+    inset:0;
+    padding:40px;
+    display:flex;
+    gap:24px;
+    align-items:center;
+    justify-content:center;
+    transition: transform 480ms cubic-bezier(.22,.9,.32,1), opacity 320ms ease;
+    will-change: transform, opacity;
+    opacity:0;
+    transform: translateX(30px) scale(.99);
+  }
+  .slide[aria-hidden="false"]{ opacity:1; transform: translateX(0) scale(1); z-index:2; }
+
+  .card{
+    width:100%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius:10px;
+    padding:28px;
+    box-shadow: 0 6px 20px rgba(2,6,23,0.55);
+    border: 1px solid rgba(255,255,255,0.03);
+  }
+
+  h1{ margin:0 0 8px 0; font-size:1.6rem; color:var(--accent) }
+  p.lead{ margin:0 0 12px 0; color:var(--muted) }
+  ul.features{ margin:16px 0 0 0; padding-left:20px; color:#dbeafe }
+  .muted{ color:var(--muted); font-size:0.95rem }
+
+  .controls{
+    display:flex;
+    gap:12px;
+    padding:16px 24px;
+    align-items:center;
+    justify-content:space-between;
+    background: linear-gradient(180deg, rgba(255,255,255,0.007), rgba(255,255,255,0.004));
+    border-top:1px solid rgba(255,255,255,0.02);
+  }
+
+  .nav{
+    display:flex;
+    gap:8px;
+  }
+
+  button.btn{
+    appearance:none;
+    border:0;
+    background:linear-gradient(90deg,var(--accent), #06b6d4);
+    color:white;
+    padding:10px 14px;
+    border-radius:8px;
+    font-weight:600;
+    cursor:pointer;
+    box-shadow: 0 6px 16px rgba(124,58,237,0.16);
+  }
+  button.ghost{
+    background:transparent;
+    color: #cfe8ff;
+    border:1px solid rgba(255,255,255,0.04);
+    padding:8px 12px;
+  }
+  button:disabled{ opacity:.45; cursor:not-allowed }
+
+  .pager{
+    display:flex;
+    gap:6px;
+    align-items:center;
+  }
+  .dot{
+    width:10px;height:10px;border-radius:50%;
+    background:rgba(255,255,255,0.08);
+  }
+  .dot.active{ background:linear-gradient(90deg,var(--accent),#06b6d4) }
+
+  /* last slide CTA */
+  .cta{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    align-items:center;
+    text-align:center;
+    padding:18px;
+  }
+  .cta .star{
+    font-size:40px;
+    letter-spacing:3px;
+    transform:translateY(-2px);
+  }
+  .repo-buttons{ display:flex; gap:8px; flex-wrap:wrap; justify-content:center }
+  .link-btn{
+    background:linear-gradient(90deg,#0ea5a7,#7c3aed);
+    color:white; padding:10px 14px; border-radius:10px; text-decoration:none; font-weight:600;
+  }
+
+  /* responsive */
+  @media (max-width:720px){
+    .slides{ padding:20px }
+    .slide{ padding:18px }
+    h1{ font-size:1.25rem }
+  }
+
+  /* small flourish for last slide */
+  .sparkles{
+    position:absolute; inset:auto auto 86px 50%; transform:translateX(-50%);
+    pointer-events:none;
+    display:flex; gap:8px;
+  }
+  .sparkles span{
+    width:10px;height:10px;border-radius:50%; opacity:0.85;
+    animation: float 1800ms linear infinite;
+  }
+  .sparkles span:nth-child(1){ background: #ffdd57; animation-delay:0 }
+  .sparkles span:nth-child(2){ background: #7c3aed; animation-delay:200ms }
+  .sparkles span:nth-child(3){ background: #06b6d4; animation-delay:400ms }
+
+  @keyframes float {
+    0%{ transform: translateY(0) scale(1) }
+    50%{ transform: translateY(-10px) scale(1.12) }
+    100%{ transform: translateY(0) scale(1) }
+  }
+
+  /* accessible focus */
+  button:focus, a:focus { outline: 3px solid rgba(99,102,241,0.18); outline-offset:3px; }
+</style>
+</head>
+<body>
+  <main class="deck" role="main" aria-label="hbtu Hacktoberfest 2025 presentation">
+    <section class="slides" id="slides">
+      <!-- Slide 1 -->
+      <article class="slide" data-index="0" aria-hidden="false">
+        <div class="card" role="group" aria-label="Welcome slide">
+          <h1>hbtuHacktoberfest2025</h1>
+          <p class="lead">Welcome — make open-source accessible to beginners. Give this repo a shiny Star ⭐⭐⭐⭐</p>
+          <p class="muted">A community-driven repo for students & developers: Python, Java, JavaScript, HTML/CSS. Issues labeled <strong>hacktoberfest</strong> and <strong>good-first-issue</strong>.</p>
+
+          <ul class="features" aria-hidden="false">
+            <li>Collection of beginner-friendly projects.</li>
+            <li>Step-by-step guidance to contribute.</li>
+            <li>Promotes learning & collaboration.</li>
+          </ul>
+
+          <p style="margin-top:18px" class="muted">Use arrow keys ← → or the buttons below to navigate slides.</p>
+        </div>
+      </article>
+
+      <!-- Slide 2 -->
+      <article class="slide" data-index="1" aria-hidden="true">
+        <div class="card">
+          <h1>How to Contribute</h1>
+          <p class="muted">Quick steps to get started:</p>
+          <ol>
+            <li>Fork the repository on GitHub.</li>
+            <li>Clone your fork: <code>git clone https://github.com/your-username/hbtuHacktoberfest2025.git</code></li>
+            <li>Pick issues labeled <strong>hacktoberfest</strong> or <strong>good-first-issue</strong>.</li>
+            <li>Make changes, commit, and open a Pull Request.</li>
+          </ol>
+          <p class="muted">Don't forget to follow the Code of Conduct and include clear commit messages.</p>
+        </div>
+      </article>
+
+      <!-- Slide 3 -->
+      <article class="slide" data-index="2" aria-hidden="true">
+        <div class="card">
+          <h1>Project Goals & Tech</h1>
+          <p class="muted">Goals:</p>
+          <ul>
+            <li>Create a high-quality directory of beginner projects</li>
+            <li>Provide a friendly platform for learning</li>
+            <li>Foster community collaboration</li>
+          </ul>
+          <p class="muted">Tech stack: Frontend — HTML/CSS/JS. Backend/Scripts — Python, Java. VCS — Git & GitHub.</p>
+        </div>
+      </article>
+
+      <!-- Slide 4 (Last slide with CTA) -->
+      <article class="slide" data-index="3" aria-hidden="true">
+        <div class="card cta" role="region" aria-label="Final slide: call to action">
+          <div class="star" aria-hidden="true">✨ ⭐ ⭐ ⭐ ⭐ ✨</div>
+          <h1>You're Ready — Contribute & Star ⭐</h1>
+          <p class="muted">Help us grow hbtuHacktoberfest2025 — every PR, star, and share counts.</p>
+
+          <div class="repo-buttons" role="group" aria-label="repository actions">
+            <!-- Update these links to point to your actual repo -->
+            <a class="link-btn" id="openRepo" href="https://github.com/your-username/hbtuHacktoberfest2025" target="_blank" rel="noopener noreferrer">Open Repo</a>
+            <a class="link-btn" id="newIssue" href="https://github.com/your-username/hbtuHacktoberfest2025/issues" target="_blank" rel="noopener noreferrer">View Issues</a>
+            <a class="link-btn" id="guide" href="#slides" role="button">Contribution Guide</a>
+          </div>
+
+          <p class="muted" style="font-size:.92rem">Tip: Search issues for <strong>hacktoberfest</strong> or <strong>good-first-issue</strong>.</p>
+        </div>
+
+        <!-- sparkles (visual only) -->
+        <div class="sparkles" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- Controls -->
+    <div class="controls" aria-hidden="false">
+      <div class="nav">
+        <button class="ghost" id="prevBtn" aria-label="Previous slide">◀ Prev</button>
+        <button class="btn" id="nextBtn" aria-label="Next slide">Next ▶</button>
+      </div>
+
+      <div class="pager" aria-hidden="false" id="pager" role="navigation" aria-label="Slide dots">
+        <!-- dots injected by JS -->
+      </div>
+    </div>
+  </main>
+
+<script>
+(function(){
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const pager = document.getElementById('pager');
+  let idx = 0;
+
+  function renderPager(){
+    pager.innerHTML = '';
+    slides.forEach((s,i)=>{
+      const d = document.createElement('div');
+      d.className = 'dot' + (i===idx ? ' active' : '');
+      d.title = 'Slide ' + (i+1);
+      d.tabIndex = 0;
+      d.setAttribute('role','button');
+      d.addEventListener('click', ()=> goTo(i));
+      d.addEventListener('keydown', (e)=> { if(e.key==='Enter' || e.key===' ') goTo(i); });
+      pager.appendChild(d);
+    });
+  }
+
+  function update(){
+    slides.forEach((s,i)=>{
+      const shown = i === idx;
+      s.setAttribute('aria-hidden', String(!shown));
+    });
+
+    prevBtn.disabled = idx === 0;
+    nextBtn.disabled = idx === slides.length - 1;
+
+    nextBtn.textContent = idx === slides.length - 1 ? 'You’re on last slide' : 'Next ▶';
+    renderPager();
+  }
+
+  function goTo(i){
+    if(i < 0 || i >= slides.length) return;
+    idx = i;
+    update();
+    // Scroll focus to slide for screen readers
+    slides[idx].querySelector('.card').focus?.();
+  }
+
+  prevBtn.addEventListener('click', ()=> goTo(idx-1));
+  nextBtn.addEventListener('click', ()=> goTo(idx+1));
+
+  // Keyboard navigation
+  window.addEventListener('keydown', (e)=>{
+    if(e.key === 'ArrowRight') goTo(Math.min(slides.length-1, idx+1));
+    if(e.key === 'ArrowLeft') goTo(Math.max(0, idx-1));
+    if(e.key === 'Home') goTo(0);
+    if(e.key === 'End') goTo(slides.length-1);
+  });
+
+  // Initialize
+  update();
+
+  // Optional: If user reaches last slide, show small animation or alert once
+  let lastSeen = false;
+  const lastCheck = setInterval(()=>{
+    if(idx === slides.length - 1 && !lastSeen){
+      lastSeen = true;
+      // subtle visual nudge: briefly pulse the repo buttons
+      document.querySelectorAll('.link-btn').forEach(btn=>{
+        btn.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-6px)' }, { transform: 'translateY(0)' }], { duration: 700, iterations: 1 });
+      });
+    }
+  }, 300);
+
+  // Accessibility: make slide card focusable
+  slides.forEach(s=>{
+    const card = s.querySelector('.card');
+    if(card) card.tabIndex = -1;
+  });
+
+  // Update demo links: if you want them to point to the real repo, replace placeholders here
+  // For convenience we set them programmatically with a default — update to real org/name as needed:
+  const repoOwner = 'your-username';
+  const repoName = 'hbtuHacktoberfest2025';
+  document.getElementById('openRepo').href = `https://github.com/${repoOwner}/${repoName}`;
+  document.getElementById('newIssue').href = `https://github.com/${repoOwner}/${repoName}/issues`;
+})();
+</script>
+</body>
+</html>
