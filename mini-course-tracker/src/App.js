@@ -1,5 +1,6 @@
 import React, { useState, useEffect, createContext, useContext } from "react";
 import "./App.css";
+import NetworkSpeedIndicator from "./components/NetworkSpeedIndicator";
 
 const CourseContext = createContext();
 
@@ -100,6 +101,7 @@ export default function App() {
         <h1>🎓 Mini Course Tracker</h1>
         <CourseInput />
         <CourseList />
+        <NetworkSpeedIndicator />
       </div>
     </CourseProvider>
   );
