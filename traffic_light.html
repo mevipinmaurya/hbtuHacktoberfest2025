@@ -1,24 +1,77 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Traffic Light</title>
-</head>
-<body>
-  <h2>Traffic Light Simulation</h2>
-  <div id="red" style="height:70px;width:70px;border-radius:50%;background-color:grey;margin:10px;"></div>
-  <div id="yellow" style="height:70px;width:70px;border-radius:50%;background-color:grey;margin:10px;"></div>
-  <div id="green" style="height:70px;width:70px;border-radius:50%;background-color:grey;margin:10px;"></div>
+  <head>
+    <title>Traffic Light</title>
+  </head>
+  <body style="display: flex; flex-direction: column; align-items: center">
+    <h2>Traffic Light Simulation</h2>
+    <div style="display: flex; flex-direction: row; align-items: center">
+      <div
+        id="red"
+        style="
+          height: 70px;
+          width: 70px;
+          border-radius: 50%;
+          background-color: grey;
+          margin: 10px;
+        "
+      ></div>
+      <div
+        id="yellow"
+        style="
+          height: 70px;
+          width: 70px;
+          border-radius: 50%;
+          background-color: grey;
+          margin: 10px;
+        "
+      ></div>
+      <div
+        id="green"
+        style="
+          height: 70px;
+          width: 70px;
+          border-radius: 50%;
+          background-color: grey;
+          margin: 10px;
+        "
+      ></div>
+    </div>
 
-  <script>
-    const lights = ['red', 'yellow', 'green'];
-    let index = 0;
+    <button
+      style="
+        padding: 8px 20px 8px 20px;
+        background-color: black;
+        color: white;
+        border-radius: 5px;
+        margin-top: 10px;
+        border: none;
+        cursor: pointer;
+      "
+      onclick="toggleTraffic()"
+    >
+      Start/Stop
+    </button>
 
-    setInterval(() => {
-      lights.forEach((color, i) => {
-        document.getElementById(color).style.backgroundColor = (i === index) ? color : 'grey';
-      });
-      index = (index + 1) % lights.length;
-    }, 1000);
-  </script>
-</body>
+    <script>
+      const lights = ["red", "yellow", "green"];
+      let index = 0;
+      let running = true;
+      function toggleTraffic() {
+        running = !running;
+      }
+
+      setInterval(() => {
+        if (!running) {
+          return;
+        } else {
+          lights.forEach((color, i) => {
+            document.getElementById(color).style.backgroundColor =
+              i === index ? color : "grey";
+          });
+          index = (index + 1) % lights.length;
+        }
+      }, 1000);
+    </script>
+  </body>
 </html>
