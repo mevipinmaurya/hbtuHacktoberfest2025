@@ -39,15 +39,12 @@ function MainAppRoutes() {
   );
 }
 
+function App() {
   return (
-    <div className={containerClass}>
-      <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">To-Do List Manager</h2>
-      
-      {/* 1. Statistics Section */}
-      <div className="flex justify-around mb-6 text-xs gap-2">
-        <div className={statBoxClass}>Total: {stats.total}</div>
-        <div className={statBoxClass}>Completed: {stats.completed}</div>
-        <div className={statBoxClass}>Pending: {stats.pending}</div>
-      </div>
+    <FocusModeProvider>
+      <MainAppRoutes />
+    </FocusModeProvider>
+  );
+}
 
 export default App;
