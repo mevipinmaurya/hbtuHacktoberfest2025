@@ -1,19 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/Modal.css';
 
-const Modal = ({content}) => {
-    [open,setOpen]=useState(false);
+const Modal = ({ content, isOpen = true, onClose }) => {
+    const [open, setOpen] = useState(isOpen);
 
-    function close(){
+    useEffect(() => {
+        setOpen(isOpen);
+    }, [isOpen]);
+
+    function close() {
         setOpen(false);
+        if (onClose) {
+            onClose();
+        }
     }
 
+  if (!open) return null;
+
   return (
-    <div className={open?'content-wrapper':'closed'}>
+    <div className="content-wrapper" role="dialog" aria-modal="true">
       {content}
-      <button onClick={close} ></button>
+      <button type="button" onClick={close} aria-label="Close modal">
+        Close
+      </button>
     </div>
-    
   );
 };
 

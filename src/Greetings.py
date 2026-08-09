@@ -48,17 +48,11 @@ def greet_user(username, lang="en", timezone="Asia/Kolkata"):
     log_greeting(username, greeting)
 
 
-# Calling the function multiple times
+# Calling the function multiple times now creates a fresh list when none is provided:
 # add_greeting()  Output: ['Hello!']
-# add_greeting()  Output: ['Hello!', 'Hello!'] -> list continues to grow
-# add_greeting()  Output: ['Hello!', 'Hello!', 'Hello!']
+# add_greeting()  Output: ['Hello!']
 
-def add_greeting(usernames=[], new_greeting="Hello!"):  # Intentional mutable default issue
-    usernames.append(new_greeting)
-    print(f"Usernames: {usernames}")
-
-
-def add_greeting_fixed(usernames=None, new_greeting="Hello!"):  # Correct approach
+def add_greeting(usernames=None, new_greeting="Hello!"):
     if usernames is None:
         usernames = []
     usernames.append(new_greeting)
@@ -102,7 +96,7 @@ def display_menu(username, lang, timezone):
         print("1. Get Greeting")
         print("2. Change Language (English/Hindi/Greek/Italian)")
         print("3. Change Time Zone")
-        print("4. Add Greeting with Mutable Default Argument")
+        print("4. Add Greeting")
         print("5. Quit")
         choice = input("What would you like to do? ")
 
@@ -113,14 +107,9 @@ def display_menu(username, lang, timezone):
         elif choice == "3":
             timezone = change_timezone()
         elif choice == "4":
-            # Demonstrating the mutable default issue
-            print("\nDemonstrating mutable default issue:")
+            print("\nAdding greetings without sharing state between calls:")
             add_greeting()
             add_greeting()
-
-            print("\nDemonstrating fixed version:")
-            add_greeting_fixed()
-            add_greeting_fixed()
         elif choice == "5":
             print("See you later!")
             break

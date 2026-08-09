@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { Edit3, Trash2, Check, Clock, RotateCcw, BarChart2, Download, Upload, Save, X, Play, Pause } from 'lucide-react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { Edit3, Trash2, Clock, RotateCcw, Download, Upload, Save, Play, Pause } from 'lucide-react';
 
 const LOCAL_STORAGE_KEY = 'hbtu_todos';
 
@@ -12,30 +12,44 @@ const formatTime = (totalSeconds) => {
 
 const TodoList = () => {
   // State initialization
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(() => {
+    try {
+      const storedTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
+      return Array.isArray(storedTodos)
+        ? storedTodos.map(todo => ({ ...todo, isTimerRunning: false }))
+        : [];
+    } catch (error) {
+      console.error('Failed to load todos from local storage:', error);
+      return [];
+    }
+  });
   const [inputValue, setInputValue] = useState('');
   const [filter, setFilter] = useState('all');
   const [editingId, setEditingId] = useState(null);
   const [editValue, setEditValue] = useState('');
-  const [activeTimers, setActiveTimers] = useState({}); // To hold setInterval IDs
+  const activeTimersRef = useRef({});
 
-  // 1. Local Storage: Load todos on mount
-  useEffect(() => {
-    const storedTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
-    setTodos(storedTodos);
-  }, []);
-
-  // 2. Local Storage: Save todos whenever state changes
+  // 1. Local Storage: Save todos whenever state changes
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos));
   }, [todos]);
 
-  // Clean up intervals when component unmounts or timers change
+  // Clean up intervals when component unmounts
   useEffect(() => {
     return () => {
-      Object.values(activeTimers).forEach(clearInterval);
+      Object.values(activeTimersRef.current).forEach(clearInterval);
+      activeTimersRef.current = {};
     };
-  }, [activeTimers]);
+  }, []);
+
+  const clearTimer = (id) => {
+    const timer = activeTimersRef.current[id];
+    if (!timer) return false;
+
+    clearInterval(timer);
+    delete activeTimersRef.current[id];
+    return true;
+  };
 
   // --- CRUD Operations ---
 
@@ -57,14 +71,7 @@ const TodoList = () => {
 
   const deleteTodo = (id) => {
     // Stop timer if running
-    if (activeTimers[id]) {
-      clearInterval(activeTimers[id]);
-      setActiveTimers(prev => {
-        const newTimers = { ...prev };
-        delete newTimers[id];
-        return newTimers;
-      });
-    }
+    clearTimer(id);
     setTodos((prevTodos) => prevTodos.filter(todo => todo.id !== id));
   };
 
@@ -104,7 +111,7 @@ const TodoList = () => {
 
   const startTimer = (id) => {
     // Clear existing interval if any
-    if (activeTimers[id]) clearInterval(activeTimers[id]);
+    clearTimer(id);
 
     const interval = setInterval(() => {
       setTodos(prevTodos => {
@@ -113,12 +120,7 @@ const TodoList = () => {
             const newTimeSpent = t.timeSpent + 1;
             // If timer duration is complete
             if (newTimeSpent >= t.timerDuration) {
-              clearInterval(activeTimers[id]);
-              setActiveTimers(prev => {
-                const newTimers = { ...prev };
-                delete newTimers[id];
-                return newTimers;
-              });
+              clearTimer(id);
               // Stop timer and mark as complete
               return { ...t, timeSpent: t.timerDuration, isTimerRunning: false, completed: true };
             }
@@ -130,7 +132,7 @@ const TodoList = () => {
     }, 1000);
 
     // Add timer to active timers state
-    setActiveTimers(prev => ({ ...prev, [id]: interval }));
+    activeTimersRef.current[id] = interval;
     
     // Set running flag in Todo state
     setTodos(prevTodos => prevTodos.map(t =>
@@ -140,17 +142,10 @@ const TodoList = () => {
 
 
   const pauseTimer = (id) => {
-    if (activeTimers[id]) {
-      clearInterval(activeTimers[id]);
-      setActiveTimers(prev => {
-        const newTimers = { ...prev };
-        delete newTimers[id];
-        return newTimers;
-      });
-      setTodos(prevTodos => prevTodos.map(t =>
-        t.id === id ? { ...t, isTimerRunning: false } : t
-      ));
-    }
+    clearTimer(id);
+    setTodos(prevTodos => prevTodos.map(t =>
+      t.id === id ? { ...t, isTimerRunning: false } : t
+    ));
   };
 
   const resetTimer = (id) => {
@@ -215,7 +210,9 @@ const TodoList = () => {
         const importedTasks = JSON.parse(event.target.result);
         if (Array.isArray(importedTasks) && importedTasks.every(t => t.task && typeof t.completed === 'boolean')) {
             // Replace all existing tasks with imported tasks
-            setTodos(importedTasks);
+            Object.values(activeTimersRef.current).forEach(clearInterval);
+            activeTimersRef.current = {};
+            setTodos(importedTasks.map(task => ({ ...task, isTimerRunning: false })));
             console.log('Tasks successfully imported!');
         } else {
             console.error('Invalid imported data structure.');
