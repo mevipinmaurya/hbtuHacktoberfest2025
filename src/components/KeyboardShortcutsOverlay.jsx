@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import './KeyboardShortcutsOverlay.css';
+import '../styles/KeyboardShortcutsOverlay.css';
 import shortcuts from './shortcutsConfig.json';
 
 const KeyboardShortcutsOverlay = () => {
@@ -43,7 +43,7 @@ const KeyboardShortcutsOverlay = () => {
         <ul>
           {shortcuts.map((shortcut, index) => (
             <li key={index}>
-              <kbd>{shortcut.keys}</kbd> – {shortcut.description}
+              <kbd>{shortcut.keys}</kbd> - {shortcut.description}
             </li>
           ))}
         </ul>
