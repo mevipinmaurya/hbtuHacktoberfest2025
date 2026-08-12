@@ -6,14 +6,14 @@ std::mutex mutex1;
 std::mutex mutex2;
 
 void thread1() {
-    std::cout<<"Thread 1 starst";
+    std::cout<<"Thread 1 starts\n";
     std::lock_guard<std::mutex> lock1(mutex1);
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
     std::lock_guard<std::mutex> lock2(mutex2); // Potential deadlock
 }
 
 void thread2() {
-    std::cout<<"Thread 2 starst";
+    std::cout<<"Thread 2 starts\n";
     std::lock_guard<std::mutex> lock2(mutex2);
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
     std::lock_guard<std::mutex> lock1(mutex1); // Potential deadlock
