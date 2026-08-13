@@ -16,7 +16,7 @@ translated_text = translator.translate(text_to_translate)
 print(f"Original text: {text_to_translate}")
 print(f"Translated text (English): {translated_text}")
 
-print("/n--Additional Examples ---")
+print("\n--Additional Examples ---")
 
 text_english = "Hello brother, how are you?"
 
